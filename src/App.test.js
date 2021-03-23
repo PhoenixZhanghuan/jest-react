@@ -1,8 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import React from 'react';
+import Enzyme, {shallow, mount} from 'enzyme';
 import App from './App';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+Enzyme.configure({adapter: new Adapter()});
+
+it('renders without crashing', () => {
+  const wrapper = mount(<App />);
+  expect(wrapper).toMatchSnapshot();
+  // const container = wrapper.find('[data-test="container"]');
+  // expect(container).toExist();
+  // expect(container).toHaveProp('title', 'dell lee');
 });
