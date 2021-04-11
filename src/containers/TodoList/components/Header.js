@@ -15,25 +15,30 @@ class Header extends Component {
     }
 
     handleInputKeyUp(e) {
-        const {value} = this.state;
-        if(e.keyCode === 13 && this.state.value) {
+        const { value } = this.state;
+        if (e.keyCode === 13 && this.state.value) {
             this.props.addUndoItem(value);
             this.setState({
-                value: ''
-            })
+                value: "",
+            });
         }
     }
 
     render() {
         const { value } = this.state;
         return (
-            <div>
-                <input
-                    data-test="input"
-                    value={value}
-                    onChange={this.handleInputChange.bind(this)}
-                    onKeyUp={this.handleInputKeyUp.bind(this)}
-                />
+            <div className="header">
+                <div className="header-content">
+                    TodoList
+                    <input
+                        placeholder="Todo"
+                        className="header-input"
+                        data-test="input"
+                        value={value}
+                        onChange={this.handleInputChange.bind(this)}
+                        onKeyUp={this.handleInputKeyUp.bind(this)}
+                    />
+                </div>
             </div>
         );
     }
