@@ -15,7 +15,7 @@
         "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
       ],
       "testEnvironment": "jsdom",
-      "testRunner": "/Users/zhanghuan/Desktop/jest-react/node_modules/jest-circus/runner.js",
+      "testRunner": "/Users/zhanghuan/WebstormProjects/jest-react/node_modules/jest-circus/runner.js",
       "transform": {
         "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "<rootDir>/config/jest/babelTransform.js",
         "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",

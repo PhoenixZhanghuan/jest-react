@@ -1,24 +1,41 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 class Header extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             value: "",
-        }
+        };
     }
 
     handleInputChange(e) {
         this.setState({
-            value: e.target.value
-        })
+            value: e.target.value,
+        });
+    }
+
+    handleInputKeyUp(e) {
+        const {value} = this.state;
+        if(e.keyCode === 13 && this.state.value) {
+            this.props.addUndoItem(value);
+            this.setState({
+                value: ''
+            })
+        }
     }
 
     render() {
-        const {value} = this.state;
-        return <div>
-            <input data-test='input' value={value} onChange={this.handleInputChange.bind(this)}/>
-        </div>
+        const { value } = this.state;
+        return (
+            <div>
+                <input
+                    data-test="input"
+                    value={value}
+                    onChange={this.handleInputChange.bind(this)}
+                    onKeyUp={this.handleInputKeyUp.bind(this)}
+                />
+            </div>
+        );
     }
 }
 
