@@ -69,6 +69,8 @@ it("Header 组件input框输入回车时，如果input有内容，最后应该�
   inputElem.simulate('keyUp', {
     keyCode: 13
   });
+  expect(fn).toHaveBeenCalled();
+  expect(fn).toHaveBeenLastCalledWith(userInput);
   const newInputElem = findTestWrapper(wrapper, 'input');
   expect(newInputElem.prop('value')).toBe('');
 })

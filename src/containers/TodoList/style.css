@@ -22,3 +22,34 @@
     border-radius: 5px;
     padding: 0 10px;
 }
+.undo-list-item {
+    line-height: 32px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    background: #fff;
+    border-left: 3px solid #629a9c;
+    text-indent: 10px;
+    border-radius: 3px;
+}
+.undo-list-delete {
+    float: right;
+    margin-top: 6px;
+    margin-right: 6px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    background: #E6E3EA;
+    text-indent: 0;
+    border-radius: 50%
+}
+
+.undo-list-input {
+    position: relative;
+    top: -1px;
+    width: 300px;
+    line-height: 22px;
+    font-size: 14px;
+    text-indent: 10px;
+    outline: none;
+}

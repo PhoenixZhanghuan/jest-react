@@ -12,7 +12,10 @@ class TodoList extends Component {
 
     addUndoItem = (value) => {
         this.setState({
-            undoList: [...this.state.undoList, value],
+            undoList: [...this.state.undoList, {
+                status: 'div',
+                value
+            }],
         });
     };
 
@@ -24,11 +27,65 @@ class TodoList extends Component {
         })
     }
 
+    changeStatus = (index) => {
+        const newList = this.state.undoList.map((item, listIndex) => {
+            if(index === listIndex) {
+                return {
+                    ...item, 
+                    status: 'input'
+                }
+            }
+            return {
+                ...item,
+                status: 'div'
+            }
+        })
+        this.setState({
+            undoList: newList
+        })
+    }
+
+    handleBlur = (index) => {
+        const newList = this.state.undoList.map((item, listIndex) => {
+            if(index === listIndex) {
+                return {
+                    ...item, 
+                    status: 'div'
+                }
+            }
+            return item;
+        })
+        this.setState({
+            undoList: newList
+        })
+    }
+
+    valueChange = (index, value) => {
+        const newList = this.state.undoList.map((item, listIndex) => {
+            if(index === listIndex) {
+                return {
+                    ...item, 
+                    value,
+                }
+            }
+            return item;
+        })
+        this.setState({
+            undoList: newList
+        })
+    }
+ 
     render() {
         return (
             <div>
                 <Header addUndoItem={this.addUndoItem} />
-                <UndoList list={this.state.undoList} deleteItem={this.deleteItem}/>
+                <UndoList 
+                    list={this.state.undoList} 
+                    deleteItem={this.deleteItem}
+                    changeStatus={this.changeStatus}
+                    handleBlur={this.handleBlur}
+                    valueChange={this.valueChange}
+                />
             </div>
         );
     }
