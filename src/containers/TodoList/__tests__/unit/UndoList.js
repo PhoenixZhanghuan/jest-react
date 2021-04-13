@@ -67,7 +67,9 @@ it("未完成列表当数据有内容时 点击某个删除按钮, 会调用删�
     const index = 1;
     const wrapper = shallow(<UndoList list={listData} deleteItem={fn}/>);
     const deleteItems = findTestWrapper(wrapper, "delete-item");
-    deleteItems.at(index).simulate("click");
+    deleteItems.at(index).simulate("click", {
+        stopPropagation: () => {}
+    });
     expect(fn).toHaveBeenLastCalledWith(index)
 });
 
@@ -139,22 +141,4 @@ it("当某一个输入框变更时, 触发执行valueChange函数", () => {
         target: {value}
     });
     expect(fn).toHaveBeenLastCalledWith(0, value)
-});
-
-
-it("valueChange方法被调用时, undoList数据项value被修改", () => {
-    const wrapper = shallow(<TodoList />);
-    const data = [{
-        status: 'input',
-        value: '学习Jest'
-    }]
-    const value = 'dell lee'
-    wrapper.setState({
-        undoList: data
-    });
-    wrapper.instance().valueChange(0, value);
-    expect(wrapper.state('undoList')[0]).toEqual({
-        ...data[0],
-        value
-    })
 });

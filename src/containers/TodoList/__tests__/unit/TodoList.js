@@ -101,3 +101,24 @@ it("handleBlur方法被调用, undoList数据项status被修改", () => {
         status: 'div'
     })
 });
+
+
+it("valueChange方法被调用时, undoList数据项value被修改", () => {
+    const wrapper = shallow(<TodoList />);
+    const data = [{
+        status: 'input',
+        value: '学习Jest'
+    }, {
+        status: 'input',
+        value: '学习TDD'
+    }]
+    const value = 'dell lee'
+    wrapper.setState({
+        undoList: data
+    });
+    wrapper.instance().valueChange(0, value);
+    expect(wrapper.state('undoList')[0]).toEqual({
+        ...data[0],
+        value
+    })
+});

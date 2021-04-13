@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class UndoList extends Component {
     render() {
-        const { list = [], deleteItem, changeStatus, handleBlur, valueChange } = this.props;
+        const { list, deleteItem, changeStatus, handleBlur, valueChange } = this.props;
         return (
             <div>
                 <div data-test="count">{list.length}</div>
@@ -30,7 +30,7 @@ class UndoList extends Component {
                                     className="undo-list-delete"
                                     data-test="delete-item"
                                     onClick={(e) => {
-                                        e && e.stopPropagation();
+                                        e.stopPropagation();
                                         deleteItem(index);
                                     }}
                                 >
