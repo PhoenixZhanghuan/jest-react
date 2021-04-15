@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Header from "./components/Header";
-import UndoList from './components/UndoList';
-import './style.css'
+import UndoList from "./components/UndoList";
+import axios from "axios";
+import "./style.css";
 class TodoList extends Component {
     constructor(props) {
         super(props);
@@ -10,12 +11,40 @@ class TodoList extends Component {
         };
     }
 
+    /*
+        {
+            data: [{
+                status: 'div',
+                value: 'dell lee'
+            }],
+            success: true
+        }
+    */
+    componentDidMount() {
+        setTimeout(() => {
+            axios
+                .get("/undoList.json")
+                .then((res) => {
+                    this.setState({
+                        undoList: res.data,
+                    });
+                    console.log(res.data);
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        }, 5000);
+    }
+
     addUndoItem = (value) => {
         this.setState({
-            undoList: [...this.state.undoList, {
-                status: 'div',
-                value
-            }],
+            undoList: [
+                ...this.state.undoList,
+                {
+                    status: "div",
+                    value,
+                },
+            ],
         });
     };
 
@@ -23,64 +52,64 @@ class TodoList extends Component {
         const newList = [...this.state.undoList];
         newList.splice(index, 1);
         this.setState({
-            undoList: newList
-        })
-    }
+            undoList: newList,
+        });
+    };
 
     changeStatus = (index) => {
         const newList = this.state.undoList.map((item, listIndex) => {
-            if(index === listIndex) {
+            if (index === listIndex) {
                 return {
-                    ...item, 
-                    status: 'input'
-                }
+                    ...item,
+                    status: "input",
+                };
             }
             return {
                 ...item,
-                status: 'div'
-            }
-        })
+                status: "div",
+            };
+        });
         this.setState({
-            undoList: newList
-        })
-    }
+            undoList: newList,
+        });
+    };
 
     handleBlur = (index) => {
         const newList = this.state.undoList.map((item, listIndex) => {
-            if(index === listIndex) {
+            if (index === listIndex) {
                 return {
-                    ...item, 
-                    status: 'div'
-                }
+                    ...item,
+                    status: "div",
+                };
             }
             return item;
-        })
+        });
         this.setState({
-            undoList: newList
-        })
-    }
+            undoList: newList,
+        });
+    };
 
     valueChange = (index, value) => {
         const newList = this.state.undoList.map((item, listIndex) => {
-            if(index === listIndex) {
+            if (index === listIndex) {
                 return {
-                    ...item, 
+                    ...item,
                     value,
-                }
+                };
             }
             return item;
-        })
+        });
         this.setState({
-            undoList: newList
-        })
-    }
- 
+            undoList: newList,
+        });
+    };
+
     render() {
         return (
             <div>
                 <Header addUndoItem={this.addUndoItem} />
-                <UndoList 
-                    list={this.state.undoList} 
+                <UndoList
+                    list={this.state.undoList}
                     deleteItem={this.deleteItem}
                     changeStatus={this.changeStatus}
                     handleBlur={this.handleBlur}
