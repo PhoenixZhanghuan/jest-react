@@ -4,9 +4,10 @@ import TodoList from "../../index";
 import { mount } from "enzyme";
 import { findTestWrapper } from "../../../../utils/testUtils";
 import store from '../../../../store/createStore';
+import axios from '../../__mocks__/axios';
 
 beforeEach(() => {
-    jest.useFakeTimers();
+    axios.success = true;
 })
 
 it(`
@@ -33,7 +34,7 @@ it(`
 });
 
 it(`
-    1. 用户打开页面
+    1. 用户打开页面, 请求正常
     2. 应该展示接口返回的数据
 `, (done) => {
     const wrapper = mount(
@@ -56,12 +57,44 @@ it(`
     //     done();
     // }, 4500)
 
-    jest.runAllTimers();
-    expect(setTimeout).toHaveBeenCalledTimes(1);
     process.nextTick(() => {
         wrapper.update();
         const listItem = findTestWrapper(wrapper, 'list-item');
         expect(listItem.length).toBe(1);
+        done();
+    })
+    
+});
+
+it(`
+    1. 用户打开页面, 请求不正常 
+    2. 应该能把页面展示出来，虽然没内容
+`, (done) => {
+    axios.success = false;
+    const wrapper = mount(
+        <Provider store={store}>
+            <TodoList />
+        </Provider>
+    );
+
+    // process.nextTick(() => {
+    //     wrapper.update();
+    //     const listItem = findTestWrapper(wrapper, 'list-item');
+    //     expect(listItem.length).toBe(1);
+    //     done();
+    // })
+
+    // setTimeout(() => {
+    //     wrapper.update();
+    //     const listItem = findTestWrapper(wrapper, 'list-item');
+    //     expect(listItem.length).toBe(1);
+    //     done();
+    // }, 4500)
+
+    process.nextTick(() => {
+        wrapper.update();
+        const listItem = findTestWrapper(wrapper, 'list-item');
+        expect(listItem.length).toBe(0);
         done();
     })
     
